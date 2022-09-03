@@ -1,4 +1,5 @@
 import { Component } from "@angular/core"
+import { ApiService } from "./api.service";
 
 @Component({
   selector: 'question',
@@ -6,8 +7,13 @@ import { Component } from "@angular/core"
   templateUrl: './question.component.html'
 })
 export class QuestionComponent {
-  question: string = ''
+  constructor(private api: ApiService) { }
+  question: any =
+    {
+      text: "",
+    };
+
   post() {
-    console.log(this.question);
+    this.api.postQuestoin(this.question);
   }
 }
