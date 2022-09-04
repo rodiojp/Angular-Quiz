@@ -1,8 +1,8 @@
 using System;
 
-namespace quiz_backend.Models
+namespace quiz_core.Quizes
 {
-    public class Question
+    public class QuizQuestionModel
     {
         public string Text { get; set; }
     }

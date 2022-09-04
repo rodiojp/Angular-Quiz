@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using quiz_backend.Models;
+using quiz_core.Framework;
+using quiz_core.Quizes;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,17 +24,24 @@ namespace quiz_backend.Controllers
 
         // POST api/<QuestionsController>
         [HttpPost]
-        public void Post([FromBody] Question question)
+        public void Post([FromBody] QuizQuestionModel question)
         {
 
         }
+
 
         // GET: api/<QuestionsController>
         [HttpGet]
-        public IEnumerable<Question> Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchResult<QuizQuestionModel>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblemDetails))]
+        public async Task<ActionResult<SearchResult<QuizQuestionModel>>> SearchQuizQuestions(
+        [FromQuery] QuizQuestionSearch search,
+        [FromServices] IQuizRepository quizRepository)
         {
-            return new Question[] { new Question { Text = "value1" }, new Question { Text = "value2" } };
+            var result = await quizRepository.SearchQuestions(search);
+            return Ok(result);
         }
+
 
         // GET api/<QuestionsController>/5
         [HttpGet("{id}")]

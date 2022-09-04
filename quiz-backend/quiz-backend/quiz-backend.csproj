@@ -5,5 +5,9 @@
     <RootNamespace>quiz_backend</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\quiz-core\quiz-core.csproj" />
+  </ItemGroup>
+
 
 </Project>

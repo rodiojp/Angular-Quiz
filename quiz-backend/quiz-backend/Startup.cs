@@ -25,6 +25,9 @@ namespace quiz_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Configuration from quiz-core project
+            services.AddCore(Configuration);
+
             services.AddCors(options => options.AddPolicy("Cors", builder =>
             {
                 builder.AllowAnyOrigin()
